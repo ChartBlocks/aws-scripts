@@ -1,0 +1,7 @@
+
+#!/bin/bash
+sudo perl -pi.orig -e   'next if /-backports/; s/^# (deb .* multiverse)$/$1/'   /etc/apt/sources.list
+
+sudo apt-add-repository ppa:awstools-dev/awstools
+sudo apt-get update
+sudo apt-get install ec2-api-tools
