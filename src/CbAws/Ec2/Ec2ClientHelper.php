@@ -17,6 +17,22 @@ class Ec2ClientHelper {
         $this->client = $client;
     }
 
+    public function getInstanceById($instanceId) {
+        $instances = $this->client->describeInstances(array(
+                    'Filters' => array(
+                        array('Name' => 'instance-id', 'Values' => array($instanceId)),
+                    )
+                ))->get('Reservations');
+
+        if (count($instances) === 0) {
+            throw new Exception('No matching instance found');
+        } elseif (count($instances) > 1) {
+            throw new Exception(count($instances) . ' instance(s) found');
+        }
+
+        return array_shift($instances[0]['Instances']);
+    }
+
     public function getInstanceByHostname($hostname) {
         $instances = $this->client->describeInstances(array(
                     'Filters' => array(
@@ -27,6 +43,8 @@ class Ec2ClientHelper {
         if (count($instances) === 0) {
             throw new Exception('No matching instance found');
         } elseif (count($instances) > 1) {
+            var_dump($instances);
+            exit;
             throw new Exception(count($instances) . ' instance(s) found');
         }
 
