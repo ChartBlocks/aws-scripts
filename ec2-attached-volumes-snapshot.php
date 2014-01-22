@@ -74,7 +74,8 @@ try {
         $snapshotIds = array();
         foreach ($toBackup as $backup) {
             $volumeId = $backup['volumeId'];
-            $name = $instanceName . ' ' . $backup['device'];
+            $device = $backup['device'];
+            $name = $instanceName . ' ' . $device;
 
             $result = $client->createSnapshot(array(
                 'VolumeId' => $volumeId,
