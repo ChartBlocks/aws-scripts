@@ -4,7 +4,7 @@ echo "Updating repositories..."
 sudo apt-get update > /dev/null
 
 echo "Installing system packages..."
-sudo apt-get install php5-cli php5-curl
+sudo apt-get install php5-cli php5-curl php5-json
 
 echo "Installing composer packages..."
 ./composer.phar up
