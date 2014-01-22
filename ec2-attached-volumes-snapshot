@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/php
 
+$client = S3Client::factory();
 ENVFILE="/etc/aws-security"
 
 if [ -f $ENVFILE ];
