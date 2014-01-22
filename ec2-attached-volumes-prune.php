@@ -6,7 +6,7 @@ use Zend\Console\ColorInterface as Color;
 use Aws\Ec2\Ec2Client;
 use CbAws\Ec2\Ec2ClientHelper;
 
-require('vendor/autoload.php');
+require(__DIR__ . '/vendor/autoload.php');
 
 $console = Console::getInstance();
 $opt = new Getopt(array(
