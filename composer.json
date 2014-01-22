@@ -1,12 +1,18 @@
 {
     "name": "chartblocks/aws-scripts",
     "require": {
-        "aws/aws-sdk-php": "2.*"
+        "aws/aws-sdk-php": "2.*",
+        "zendframework/zend-console": "2.*"
     },
     "authors": [
         {
             "name": "Arron Woods",
             "email": "aw@chartblocks.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0": {
+            "CbAws": "src/"
+        }
+    }
 }
