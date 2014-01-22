@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source /etc/aws-security
+source ./aws-scripts/region.sh
+
+echo "Access key is $AWS_ACCESS_KEY"
+echo "Region is $AWS_REGION"
+
+/usr/bin/php aws-scripts/ec2-attached-volumes-snapshot.php --key $AWS_ACCESS_KEY --secret $AWS_SECRET_KEY --region $AWS_REGION
+/usr/bin/php aws-scripts/ec2-attached-volumes-prune.php --key $AWS_ACCESS_KEY --secret $AWS_SECRET_KEY --region $AWS_REGION --age 2419200
