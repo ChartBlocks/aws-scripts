@@ -4,4 +4,6 @@ sudo perl -pi.orig -e   'next if /-backports/; s/^# (deb .* multiverse)$/$1/'   
 
 sudo apt-add-repository ppa:awstools-dev/awstools
 sudo apt-get update
-sudo apt-get install php5-cli php-aws-sdk
+sudo apt-get install php5-cli php5-curl php-aws-sdk
+
+./composer.phar up
