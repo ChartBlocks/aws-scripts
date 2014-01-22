@@ -3,6 +3,7 @@
 namespace CbAws\Ec2;
 
 use Aws\Ec2\Ec2Client;
+use Exception;
 
 class Ec2ClientHelper {
 
