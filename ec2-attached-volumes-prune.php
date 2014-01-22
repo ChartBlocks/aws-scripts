@@ -12,7 +12,7 @@ $console = Console::getInstance();
 $opt = new Getopt(array(
     'key|O-s' => 'AWS access key',
     'secret|W-s' => 'AWS secret key',
-    'hostname|h-s' => 'Hostname to backup',
+    'instance|i-s' => 'Instance to backup',
     'region|r-s' => 'Region of host',
     'age|t-s' => 'Max age, in seconds (default = 1 week)',
     'dry-run|d' => 'Dry run, do not delete anything',
@@ -23,7 +23,7 @@ try {
     $key = empty($opt->key) ? getenv('AWS_ACCESS_KEY') : $opt->key;
     $secret = empty($opt->secret) ? getenv('AWS_SECRET_KEY') : $opt->secret;
     $region = empty($opt->region) ? getenv('AWS_REGION') : $opt->region;
-    $hostname = empty($opt->hostname) ? gethostname() : $opt->hostname;
+    $instanceId = $opt->instance;
     $age = empty($opt->age) ? 86400 * 7 : (int) $opt->age;
     $dryRun = (bool) $opt->{'dry-run'};
 
@@ -36,8 +36,6 @@ try {
     $maxAge = new DateTime();
     $maxAge->sub(new DateInterval('PT' . $age . 'S'));
 
-    $console->writeLine("Pruning snapshots on $hostname older than " . $maxAge->format('c'));
-
     $client = Ec2Client::factory(array(
                 'key' => $key,
                 'secret' => $secret,
@@ -46,9 +44,16 @@ try {
 
     $clientHelper = new Ec2ClientHelper($client);
 
-    $instance = $clientHelper->getInstanceByHostname($hostname);
-    $instanceId = $instance['InstanceId'];
+    if (empty($instanceId)) {
+        $hostname = gethostname() . '.';
+        $instance = $clientHelper->getInstanceByHostname($hostname);
+        $instanceId = $instance['InstanceId'];
+    } else {
+        $instance = $clientHelper->getInstanceById($instanceId);
+    }
+
     $instanceName = $clientHelper->resolveInstanceName($instance);
+    $console->writeLine("Pruning snapshots on $instanceName older than " . $maxAge->format('c'));
 
     $volumes = $clientHelper->getVolumesByInstance($instanceId);
     if (count($volumes) === 0) {
