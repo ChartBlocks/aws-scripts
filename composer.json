@@ -1,0 +1,12 @@
+{
+    "name": "chartblocks/aws-scripts",
+    "require": {
+        "aws/aws-sdk-php": "2.*"
+    },
+    "authors": [
+        {
+            "name": "Arron Woods",
+            "email": "aw@chartblocks.com"
+        }
+    ]
+}
