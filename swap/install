@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Updating repositories..."
+sudo apt-get update > /dev/null
+
+echo "Installing system packages..."
+sudo apt-get install python
+
+echo "Checking out py_ephemeral..."
+sudo git clone https://github.com/heitorlessa/website.git /usr/local/src/py_ephemeral
+
+echo "Installing py_ephemeral..."
+sudo python /usr/local/src/py_ephemeral/setup.py install
+
+echo "Installed successfully."
+echo "Copy swap.py.example to /usr/local/bin/, modify to suit needs"
+echo "Run $ python /usr/local/bin/swap.py to setup, and add to /etc/rc.local to enable on boot"
