@@ -10,7 +10,9 @@ echo "Checking out py_ephemeral..."
 sudo git clone https://github.com/heitorlessa/website.git /usr/local/src/py_ephemeral
 
 echo "Installing py_ephemeral..."
-sudo python /usr/local/src/py_ephemeral/setup.py install
+cd /usr/local/src/py_ephemeral
+sudo python setup.py install
+cd -
 
 echo "Installed successfully."
 echo "Copy swap.py.example to /usr/local/bin/, modify to suit needs"
