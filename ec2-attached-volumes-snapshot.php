@@ -85,6 +85,20 @@ try {
             $snapshotId = $result['SnapshotId'];
             array_push($snapshotIds, $snapshotId);
 
+            $client->createTags(array(
+                'Resources' => array($snapshotId),
+                'Tags' => array(
+                    array(
+                        'Key' => 'AutomatedBackup',
+                        'Value' => '1',
+                    ),
+                    array(
+                        'Key' => 'AutomatedBackupDate',
+                        'Value' => date('c'),
+                    )
+                )
+            ));
+
             $console->writeLine("Saving $volumeId on $device to $snapshotId", Color::GRAY);
         }
 

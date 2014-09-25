@@ -109,7 +109,8 @@ class Ec2ClientHelper {
         return $this->client->describeSnapshots(array(
                     'Filters' => array(
                         array('Name' => 'volume-id', 'Values' => $volumeIds),
-                        array('Name' => 'status', 'Values' => array('completed'))
+                        array('Name' => 'status', 'Values' => array('completed')),
+                        array('Name' => 'tag-key', 'Values' => array('AutomatedBackup'))
                     )
                 ))->get('Snapshots');
     }
